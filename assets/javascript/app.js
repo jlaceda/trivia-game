@@ -267,7 +267,25 @@ let Jeopardy = {
 			window.clearInterval(Jeopardy.solutionTimer);
 			Jeopardy.solutionTimer = null;
 			Jeopardy.solutionTimerCountDown = 3000;
+			Jeopardy.currentClue = null;
 			drawBoard();
+		}
+	},
+	boardTimerStep: () =>
+	{
+		Jeopardy.boardTimerCountDown -= 500;
+		if (Jeopardy.boardTimerCountDown < 0)
+		{
+			window.clearInterval(Jeopardy.boardTimer);
+			Jeopardy.boardTimer = null;
+			Jeopardy.boardTimerCountDown = TEN_SECONDS/2;
+			pickRandomClue();
+			if (Jeopardy.gameOver)
+			{
+				drawGameOver();
+				return;
+			}
+			drawClue();
 		}
 	}
 
@@ -285,6 +303,48 @@ Jeopardy.board.forEach(category =>
 	})
 	
 });
+
+const pickRandomClue = () =>
+{
+	let thereAreStillUnusedClues = false;
+	Jeopardy.board.forEach(category =>
+	{
+		category.clues.forEach(clue =>
+		{
+			if (!clue.used)
+			{
+				thereAreStillUnusedClues = true;
+				return;
+			}
+		});
+		if (thereAreStillUnusedClues)
+		{
+			return;
+		}
+	});
+
+	if (!thereAreStillUnusedClues)
+	{
+		Jeopardy.gameOver = true;
+		return;
+	}
+
+	while (Jeopardy.currentClue === null)
+	{
+		let randCat = randomIndex(Jeopardy.board.length);
+		let randClue = randomIndex(Jeopardy.board[randCat].clues.length);
+
+		if (!Jeopardy.board[randCat].clues[randClue].used)
+		{
+			Jeopardy.currentClue = Jeopardy.board[randCat].clues[randClue];
+		}
+	}
+};
+
+const drawGameOver = () =>
+{
+
+}
 
 const drawBoard = () =>
 {
@@ -309,6 +369,9 @@ const drawBoard = () =>
 		});
 		boardDiv.append(categoryDiv);
 	});
+	// start board timer.
+	Jeopardy.boardTimerCountDown = TEN_SECONDS/2;
+	Jeopardy.boardTimer = window.setInterval(Jeopardy.boardTimerStep, 500);
 	$(".jeopardy_screen").append(boardDiv);
 }
 
@@ -328,6 +391,9 @@ const drawClue = () =>
 		let resButton = $("<button>").addClass("btn btn-dark btn-lg btn-block response");
 		resButton.text(res);
 		resButton.click(() => {
+			window.clearInterval(Jeopardy.clueTimer);
+			Jeopardy.clueTimer = null;
+			Jeopardy.clueTimerCountDown = TEN_SECONDS;
 			drawSolution(clue,resButton.text());
 		});
 		responsesDiv.append(resButton);
@@ -405,8 +471,8 @@ const drawStartGame = () =>
 	<p class="lead">Play this mod of classic the trivia game Jeopardy!</p>
 	<hr class="my-4">
 	<ul>
-		<li>You pick the category (within the time limit) and we'll give you the clues in order.</li>
-		<li>There's also time limit at each clue.</li>
+		<li>A clue will be given at random.</li>
+		<li>There is a ten second time limit at each clue.</li>
 		<li>Try to get to a high score!</li>
 	</ul>
 	<a class="btn btn-primary btn-lg" href="#" id="startButton" role="button">Start</a>
@@ -428,11 +494,11 @@ const drawStartGame = () =>
 
 $(document).ready(function()
 {
-	//drawStartGame();
+	drawStartGame();
 	//drawBoard();
-	Jeopardy.currentClue = moneymoneymoney.clues[0];
-	Jeopardy.currentCategoryIndex = 0;
-	drawClue();
+	//Jeopardy.currentClue = moneymoneymoney.clues[0];
+	//Jeopardy.currentCategoryIndex = 0;
+	//drawClue();
 	//drawSolution(moneymoneymoney.clues[3],"Alexander the Great");
 	//drawSolution(moneymoneymoney.clues[3],"");
 	//drawSolution(moneymoneymoney.clues[3],"Apollo");
