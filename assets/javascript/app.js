@@ -23,17 +23,15 @@ Jeopardy.board.forEach(category =>
 	
 });
 
-const drawGameOver = () =>
-{
-	$(".jeopardy_screen").empty();
-	let gameOverDiv = $("<div>");
-	
-	$(".jeopardy_screen").append(gameOverDiv);
-}
-
 const drawBoard = () =>
 {
 	$(".jeopardy_screen").empty();
+	let progressDiv = $("<div>").addClass("row progress");
+	let progressBarDiv = $("<div>").addClass("progress-bar progress-bar-striped bg-primary");
+	progressBarDiv.css("width","0%");
+	progressDiv.append(progressBarDiv);
+	let scoreDiv = $("<div>").addClass("row");
+	scoreDiv.html("<p>Score: " + Jeopardy.score + "</p>")
 	let boardDiv = $("<div>").addClass("row");
 	Jeopardy.board.forEach(category =>
 	{
@@ -55,9 +53,12 @@ const drawBoard = () =>
 		boardDiv.append(categoryDiv);
 	});
 	// start board timer.
-	Jeopardy.boardTimerCountDown = TEN_SECONDS/2;
-	Jeopardy.boardTimer = window.setInterval(Jeopardy.boardTimerStep, 500);
+	// TODO: 
+	Jeopardy.boardTimerCountDown = Jeopardy.boardTimerDuration;
+	Jeopardy.boardTimer = window.setInterval(Jeopardy.boardTimerStep, Jeopardy.stepDuration);
+	$(".jeopardy_screen").append(progressDiv);
 	$(".jeopardy_screen").append(boardDiv);
+	progressBarDiv.animate({ width: "100%" }, Jeopardy.boardTimerDuration);
 }
 
 const drawClue = () =>
@@ -95,10 +96,10 @@ const drawClue = () =>
 	clueDiv.append(colDiv);
 
 	// start clue timer.
-	Jeopardy.clueTimerCountDown = TEN_SECONDS;
-	Jeopardy.clueTimer = window.setInterval(Jeopardy.clueTimerStep, 500);
+	Jeopardy.clueTimerCountDown = Jeopardy.clueTimerDuration;
+	Jeopardy.clueTimer = window.setInterval(Jeopardy.clueTimerStep, Jeopardy.stepDuration);
 	// progress bar animation!!!
-	progressBarDiv.animate({ width: "100%" }, TEN_SECONDS);
+	progressBarDiv.animate({ width: "100%" }, Jeopardy.clueTimerDuration);
 	$(".jeopardy_screen").append(clueDiv);
 }
 
@@ -119,6 +120,7 @@ const drawSolution = (clue, userAnswer) =>
 		cardDiv.append("<h1>Correct!</h1>");
 		clue.correct = true;
 		Jeopardy.score += clue.value;
+		cardDiv.append(`<h2>Score: ${Jeopardy.score}</h2>`);
 	}
 	else
 	{
@@ -134,6 +136,7 @@ const drawSolution = (clue, userAnswer) =>
 			Jeopardy.score -= clue.value;
 		}
 		cardDiv.append("<h1>The correct response is "+clue.question+".</h1>");
+		cardDiv.append(`<h2>Score: ${Jeopardy.score}</h2>`);
 	}
 	cardDiv.append(progressDiv);
 	colDiv.append(cardDiv);
@@ -148,7 +151,19 @@ const drawSolution = (clue, userAnswer) =>
 
 const drawStartGame = () =>
 {
-	Jeopardy.startTrivia();
+	Jeopardy.correctCount = 0;
+	Jeopardy.gameOver = false;
+	Jeopardy.wrongCount = 0;
+	Jeopardy.score = 0;
+	Jeopardy.currentQuestion = null;
+	Jeopardy.board.forEach(category =>
+	{
+		category.clues.forEach(clue =>
+		{
+			clue.used = false;
+			clue.correct = false;
+		})
+	});
 	$(".jeopardy_screen").empty();
 	let startGameDiv = $("<div>").addClass("jumbotron");
 	startGameDiv.html(`<h1 class="display-4">Let's Play Jeopardy!</h1>
@@ -179,6 +194,31 @@ const drawStartGame = () =>
 	startGameDiv.append(highscores);
 	$(".jeopardy_screen").append(startGameDiv);
 };
+
+const drawGameOver = () =>
+{
+	$(".jeopardy_screen").empty();
+	let gameOverDiv = $("<div>").addClass("jumbotron");
+	gameOverDiv.html(`
+	<h1 class="display-4">You did it!</h1>
+	<p class="lead">You ended up with a final score of ${Jeopardy.score}</p>
+	<hr class="my-4">
+	<p>Enter your name for the High Score Board:</p>
+	<div class="input-group mb-3">
+		<input id="name" type="text" class="form-control" placeholder="Initials" aria-label="Initials" aria-describedby="tryAgainButton">
+		<div class="input-group-append">
+			<button class="btn btn-outline-secondary" type="button" id="tryAgainButton">Try Again!</button>
+		</div>
+	</div>
+	`);
+	gameOverDiv.find("#tryAgainButton").click(() => {
+		let name = $("#name").val();
+		Jeopardy.addHighScore(name, Jeopardy.score);
+		//Jeopardy.startTrivia();
+		drawStartGame();
+	})
+	$(".jeopardy_screen").append(gameOverDiv);
+}
 
 $(document).ready(function()
 {

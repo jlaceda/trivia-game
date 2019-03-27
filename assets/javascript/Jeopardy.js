@@ -42,35 +42,13 @@ let Jeopardy = {
 	board: [
 		moneymoneymoney,
 		weregoingtothemovies,
-		moneymoneymoney,
-		weregoingtothemovies,
-		moneymoneymoney,
-		weregoingtothemovies,
+		thechroniclesofnarnia,
+		popculture,
+		scienceguys,
+		theresawaron,
 	],
 
 	currentCategoryIndex: 0,
-
-	// Trivia methods
-	startTrivia: () => 
-	{
-		this.correctCount = 0;
-		this.gameOver = false;
-		this.wrongCount = 0;
-		this.score = 0;
-		this.currentQuestion = null;
-		this.resetClues();
-	},
-	resetClues: () =>
-	{
-		this.board.forEach(category =>
-		{
-			category.clues.forEach(clue =>
-			{
-				clue.used = false;
-				clue.correct = false;
-			})
-		});
-	},
 
 	// These TimerStep functions will be passed into window.setInterval
 	// so "this" will be window. Don't use "this".
