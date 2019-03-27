@@ -155,6 +155,79 @@ let thechroniclesofnarnia =
 	[
 		{
 			value: 200,
+			answer: "He's the title lion in \"The Lion, the Witch and the Wardrobe\", the first Narnia book",
+			responses: [
+				"Leo",
+				"Aslan",
+				"Mufasa",
+				"Aslion",
+			],
+			question: "Aslan",
+			used: false,
+			correct: false,
+		},
+		{
+			value: 400,
+			answer: "Miraz, the king of Narnia, is the uncle of this title royal of the second book in the series",
+			responses: [
+				"Edmund Pevensie",
+				"Lord Glozelle",
+				"Prince Caspian",
+				"Queen Jadis",
+			],
+			question: "Prince Caspian",
+			used: false,
+			correct: false,
+		},
+		{
+			value: 600,
+			answer: "In the fifth book of the chronicles, Bree, a talking one of these, and a boy named Shasta ride to Narnia",
+			responses: [
+				"A horse",
+				"A mouse",
+				"An elephant",
+				"A goat",
+			],
+			question: "A horse",
+			used: false,
+			correct: false,
+		},
+		{
+			value: 800,
+			answer: "Digory is the title relative of this sixth book that also features his \"enchanting\" uncle Andrew",
+			responses: [
+				"The Royal Heir",
+				"The Lightning Thief",
+				"The Magicians Nephew",
+				"The Alchemist",
+			],
+			question: "The Magicians Nephew",
+			used: false,
+			correct: false,
+		},
+		{
+			value: 1000,
+			answer: "\"Farewell to Shadowlands\" is the last chapter of this seventh & \"Last\" book in the chronicles",
+			responses: [
+				"The Deathly Hallows",
+				"The Horse and His Boy",
+				"The Last Battle",
+				"The Silver Chair",
+			],
+			question: "The Last Battle",
+			used: false,
+			correct: false,
+		},
+	]
+};
+
+let TODO = 
+{
+	name: "todo",
+	clues:
+	[
+		{
+			value: 200,
 			answer: "",
 			responses: [
 				"",
@@ -165,6 +238,204 @@ let thechroniclesofnarnia =
 			question: "",
 			used: false,
 			correct: false,
-		}
+		},
+		{
+			value: 400,
+			answer: "",
+			responses: [
+				"",
+				"",
+				"",
+				"",
+			],
+			question: "",
+			used: false,
+			correct: false,
+		},
+		{
+			value: 600,
+			answer: "",
+			responses: [
+				"",
+				"",
+				"",
+				"",
+			],
+			question: "",
+			used: false,
+			correct: false,
+		},
+		{
+			value: 800,
+			answer: "",
+			responses: [
+				"",
+				"",
+				"",
+				"",
+			],
+			question: "",
+			used: false,
+			correct: false,
+		},
+		{
+			value: 1000,
+			answer: "",
+			responses: [
+				"",
+				"",
+				"",
+				"",
+			],
+			question: "",
+			used: false,
+			correct: false,
+		},
 	]
 };
+
+let theresawaron = 
+{
+	name: "there's a war on",
+	clues:
+	[
+		{
+			value: 200,
+			answer: "A \"conflict\": 1950 to 1953",
+			responses: [
+				"The Spanish War",
+				"The Korean War",
+				"Bay of Pigs",
+				"The War of 1812",
+			],
+			question: "The Korean War",
+			used: false,
+			correct: false,
+		},
+		{
+			value: 400,
+			answer: "1846 to 1848: Starring Zachary Taylor",
+			responses: [
+				"Battle of Palo Alto",
+				"The Mexican-American War",
+				"Second Seminole War",
+				"The War of 1812",
+			],
+			question: "",
+			used: false,
+			correct: false,
+		},
+		{
+			value: 600,
+			answer: "1618 to 1648: Duh",
+			responses: [
+				"The Dutch Revolt",
+				"The Thirty Years' War",
+				"The Seven Years' War",
+				"The War of 1812",
+			],
+			question: "",
+			used: false,
+			correct: false,
+		},
+		{
+			value: 800,
+			answer: "April-December 1898",
+			responses: [
+				"Cuban War of Independence",
+				"The Spanish-American War",
+				"The Crimean War",
+				"The War of 1812",
+			],
+			question: "The Spanish-American War",
+			used: false,
+			correct: false,
+		},
+		{
+			value: 1000,
+			answer: "In America: 1754 to 1763",
+			responses: [
+				"The French and Indian War",
+				"The American Indian Wars",
+				"French Wars of Religion",
+				"The War of 1812",
+			],
+			question: "The French and Indian War",
+			used: false,
+			correct: false,
+		},
+	]
+};
+
+let popculture = 
+{
+	name: "pop culture",
+	clues:
+	[
+		{
+			value: 200,
+			answer: "Beyonce has more than 60 million followers on this photo-sharing app whose logo looks like a Polaroid camera",
+			responses: [
+				"Twitter",
+				"Snapchat",
+				"Instagram",
+				"Flickr",
+			],
+			question: "Instagram",
+			used: false,
+			correct: false,
+		},
+		{
+			value: 400,
+			answer: "Twenty One Pilots \"wish we could turn back time to the good old days... but now we're\" this title",
+			responses: [
+				"Dressed Out",
+				"Smoked Out",
+				"Blacked Out",
+				"Stressed Out",
+			],
+			question: "Stressed Out",
+			used: false,
+			correct: false,
+		},
+		{
+			value: 600,
+			answer: "Creepers love the gaming channel stampylonghead & its devotion to this ubiquitous Mojang game",
+			responses: [
+				"Plants vs. Zombies",
+				"Minecraft",
+				"Fortnite",
+				"Clash of Clans",
+			],
+			question: "Minecraft",
+			used: false,
+			correct: false,
+		},
+		{
+			value: 800,
+			answer: "In 2016 this member of One Direction became a dad to a lad named Freddie",
+			responses: [
+				"Zayn Malik",
+				"Niall Horan",
+				"Louis Tomilinson",
+				"Liam Payne",
+			],
+			question: "Louis Tomilinson",
+			used: false,
+			correct: false,
+		},
+		{
+			value: 1000,
+			answer: "Avicii, a 26-year-old superstar in EDM, this type of music, recently died",
+			responses: [
+				"Electric Digital Motion",
+				"Electronic Dance Music",
+				"Electronic Direct Mail",
+				"Engineered Dance Music",
+			],
+			question: "Electronic Dance Music",
+			used: false,
+			correct: false,
+		},
+	]
+}
