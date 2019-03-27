@@ -1,3 +1,5 @@
+"use strict";
+
 // the clues
 // http://www.j-archive.com/showgame.php?game_id=5454
 let moneymoneymoney =
