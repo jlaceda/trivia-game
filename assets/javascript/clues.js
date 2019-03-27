@@ -221,73 +221,74 @@ let thechroniclesofnarnia =
 	]
 };
 
-let TODO = 
+// TODO: fill out responses
+let scienceguys = 
 {
-	name: "todo",
+	name: "science guys",
 	clues:
 	[
 		{
 			value: 200,
-			answer: "",
+			answer: "This Austrian monk found pairs of genes separate in a random fashion when a plant's gametes form",
 			responses: [
 				"",
 				"",
-				"",
+				"Mendel",
 				"",
 			],
-			question: "",
+			question: "Mendel",
 			used: false,
 			correct: false,
 		},
 		{
 			value: 400,
-			answer: "",
+			answer: "Surely this rings a bell: the name of this physiologist who studied the secretory activity of digestion from 1890 to 1900",
 			responses: [
 				"",
 				"",
 				"",
-				"",
+				"Ivan Pavlov",
 			],
-			question: "",
+			question: "Ivan Pavlov",
 			used: false,
 			correct: false,
 		},
 		{
 			value: 600,
-			answer: "",
+			answer: "This Swede's original scale had water's boiling point at 0 degrees & its freezing point at 100",
 			responses: [
 				"",
-				"",
+				"Celsius",
 				"",
 				"",
 			],
-			question: "",
+			question: "Celsius",
 			used: false,
 			correct: false,
 		},
 		{
 			value: 800,
-			answer: "",
+			answer: "This giant of modern physics was diagnosed with ALS as a graduate student at Cambridge",
 			responses: [
 				"",
 				"",
-				"",
+				"Hawking",
 				"",
 			],
-			question: "",
+			question: "Hawking",
 			used: false,
 			correct: false,
 		},
 		{
 			value: 1000,
-			answer: "",
+			answer: "This Rome-born physicist designed the first nuclear reactor",
 			responses: [
 				"",
-				"",
+				"Fermi",
 				"",
 				"",
 			],
-			question: "",
+			question: "Fermi",
 			used: false,
 			correct: false,
 		},
@@ -415,12 +416,12 @@ let popculture =
 			value: 800,
 			answer: "In 2016 this member of One Direction became a dad to a lad named Freddie",
 			responses: [
-				"Zayn Malik",
-				"Niall Horan",
-				"Louis Tomilinson",
-				"Liam Payne",
+				"Zayn",
+				"Niall",
+				"Louis",
+				"Liam",
 			],
-			question: "Louis Tomilinson",
+			question: "Louis",
 			used: false,
 			correct: false,
 		},
