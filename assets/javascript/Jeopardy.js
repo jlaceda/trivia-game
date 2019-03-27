@@ -2,9 +2,6 @@
 
 "use strict";
 
-const TEN_SECONDS = 10000;
-const STEP_DURATION = 500;
-
 // the trivia object
 let Jeopardy = {
 	// flags

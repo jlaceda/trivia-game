@@ -194,7 +194,6 @@ const drawGameOver = () =>
 	gameOverDiv.find("#tryAgainButton").click(() => {
 		let name = $("#name").val();
 		Jeopardy.addHighScore(name, Jeopardy.score);
-		//Jeopardy.startTrivia();
 		drawStartGame();
 	})
 	$(".jeopardy_screen").append(gameOverDiv);
