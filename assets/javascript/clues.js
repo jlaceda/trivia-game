@@ -221,7 +221,6 @@ let thechroniclesofnarnia =
 	]
 };
 
-// TODO: fill out responses
 let scienceguys = 
 {
 	name: "science guys",
@@ -231,12 +230,12 @@ let scienceguys =
 			value: 200,
 			answer: "This Austrian monk found pairs of genes separate in a random fashion when a plant's gametes form",
 			responses: [
-				"",
-				"",
-				"Mendel",
-				"",
+				"Carl Correns",
+				"Hugo de Vries",
+				"Gregor Mendel",
+				"Erich von Tschermak",
 			],
-			question: "Mendel",
+			question: "Gregor Mendel",
 			used: false,
 			correct: false,
 		},
@@ -244,9 +243,9 @@ let scienceguys =
 			value: 400,
 			answer: "Surely this rings a bell: the name of this physiologist who studied the secretory activity of digestion from 1890 to 1900",
 			responses: [
-				"",
-				"",
-				"",
+				"Philip Zimbardo",
+				"Sigmund Freud",
+				"Carl Jung",
 				"Ivan Pavlov",
 			],
 			question: "Ivan Pavlov",
@@ -257,10 +256,10 @@ let scienceguys =
 			value: 600,
 			answer: "This Swede's original scale had water's boiling point at 0 degrees & its freezing point at 100",
 			responses: [
-				"",
+				"Kelvin",
 				"Celsius",
-				"",
-				"",
+				"Fahrenheit",
+				"Rankine",
 			],
 			question: "Celsius",
 			used: false,
@@ -270,10 +269,10 @@ let scienceguys =
 			value: 800,
 			answer: "This giant of modern physics was diagnosed with ALS as a graduate student at Cambridge",
 			responses: [
-				"",
-				"",
+				"Feynman",
+				"Einstein",
 				"Hawking",
-				"",
+				"Kaku",
 			],
 			question: "Hawking",
 			used: false,
@@ -283,12 +282,12 @@ let scienceguys =
 			value: 1000,
 			answer: "This Rome-born physicist designed the first nuclear reactor",
 			responses: [
-				"",
-				"Fermi",
-				"",
-				"",
+				"Robert Oppenheimer",
+				"Enrico Fermi",
+				"Emilio Segrè",
+				"Luigi Puccianti",
 			],
-			question: "Fermi",
+			question: "Enrico Fermi",
 			used: false,
 			correct: false,
 		},
