@@ -144,3 +144,22 @@ let Jeopardy = {
 		});
 	},
 };
+
+// random index from array length
+const randomIndex = arrayLength =>
+{
+	return Math.floor(Math.random() * arrayLength);
+};
+
+// validate that each answer has a question
+Jeopardy.board.forEach(category =>
+{
+	category.clues.forEach(clue =>
+	{
+		if (clue.responses.indexOf(clue.question) === -1)
+		{
+			console.error(category.name +": "+ clue.value + " does not have an answer.")
+		}
+	})
+	
+});
