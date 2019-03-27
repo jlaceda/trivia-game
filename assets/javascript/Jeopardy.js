@@ -56,12 +56,9 @@ let Jeopardy = {
 		this.correctCount = 0;
 		this.gameOver = false;
 		this.wrongCount = 0;
+		this.score = 0;
 		this.currentQuestion = null;
-	},
-	startQuestion: () => 
-	{
-		// pick a question
-
+		this.resetClues();
 	},
 	resetClues: () =>
 	{
@@ -73,10 +70,6 @@ let Jeopardy = {
 				clue.correct = false;
 			})
 		});
-	},
-	getScore: () =>
-	{
-
 	},
 
 	// These TimerStep functions will be passed into window.setInterval
@@ -164,5 +157,12 @@ let Jeopardy = {
 				Jeopardy.currentClue = Jeopardy.board[randCat].clues[randClue];
 			}
 		}
+	},
+	addHighScore: (name, score) =>
+	{
+		Jeopardy.highScores.push({
+			name: name,
+			score: score,
+		});
 	},
 };
