@@ -1,126 +1,14 @@
 /// <reference path="jquery-3.3.1.min.js"/>
+/// <reference path="clues.js"/>
+/// <reference path="Jeopardy.js"/>
 
 "use strict";
-
-// resets the clues array
-const resetClues = () =>
-{
-	board.forEach(category =>
-	{
-		category.clues.forEach(clue =>
-		{
-			clue.used = false;
-			clue.correct = false;
-		})
-	});
-}
 
 // random index from array length
 const randomIndex = arrayLength =>
 {
 	return Math.floor(Math.random() * arrayLength);
 }
-
-const TEN_SECONDS = 10000;
-
-// the trivia object
-let Jeopardy = {
-	// flags
-	gameOver: false,
-	
-	correctCount: 0,
-	wrongCount: 0,
-	score: 0,
-	currentClue: null,
-
-	clueTimer: null,
-	clueTimerCountDown: TEN_SECONDS,
-	highScores:
-	[
-		{
-			name: "wtsn",
-			score: 18000
-		},
-		{
-			name: "john",
-			score: 1000
-		},
-		{
-			name: "alex",
-			score: 2000
-		},
-		{
-			name: "kenj",
-			score: 5000
-		},
-	],
-
-	board: [
-		moneymoneymoney,
-		weregoingtothemovies,
-		moneymoneymoney,
-		weregoingtothemovies,
-		moneymoneymoney,
-		weregoingtothemovies,
-	],
-
-	currentCategoryIndex: 0,
-
-	// Trivia methods
-	startTrivia: () => 
-	{
-		this.correctCount = 0;
-		this.gameOver = false;
-		this.wrongCount = 0;
-		this.currentQuestion = null;
-	},
-	startQuestion: () => 
-	{
-		// pick a question
-
-	},
-	clueTimerStep: () =>
-	{
-		Jeopardy.clueTimerCountDown -= 500;
-		if (Jeopardy.clueTimerCountDown < 0)
-		{
-			window.clearInterval(Jeopardy.clueTimer);
-			Jeopardy.clueTimer = null;
-			Jeopardy.clueTimerCountDown = TEN_SECONDS;
-			drawSolution(Jeopardy.currentClue, '');
-		}
-	},
-	solutionTimerStep: () =>
-	{
-		Jeopardy.solutionTimerCountDown -= 500;
-		if (Jeopardy.solutionTimerCountDown < 0)
-		{
-			window.clearInterval(Jeopardy.solutionTimer);
-			Jeopardy.solutionTimer = null;
-			Jeopardy.solutionTimerCountDown = 3000;
-			Jeopardy.currentClue = null;
-			drawBoard();
-		}
-	},
-	boardTimerStep: () =>
-	{
-		Jeopardy.boardTimerCountDown -= 500;
-		if (Jeopardy.boardTimerCountDown < 0)
-		{
-			window.clearInterval(Jeopardy.boardTimer);
-			Jeopardy.boardTimer = null;
-			Jeopardy.boardTimerCountDown = TEN_SECONDS/2;
-			pickRandomClue();
-			if (Jeopardy.gameOver)
-			{
-				drawGameOver();
-				return;
-			}
-			drawClue();
-		}
-	}
-
-};
 
 // validate that each answer has a question
 Jeopardy.board.forEach(category =>
@@ -135,46 +23,12 @@ Jeopardy.board.forEach(category =>
 	
 });
 
-const pickRandomClue = () =>
-{
-	let thereAreStillUnusedClues = false;
-	Jeopardy.board.forEach(category =>
-	{
-		category.clues.forEach(clue =>
-		{
-			if (!clue.used)
-			{
-				thereAreStillUnusedClues = true;
-				return;
-			}
-		});
-		if (thereAreStillUnusedClues)
-		{
-			return;
-		}
-	});
-
-	if (!thereAreStillUnusedClues)
-	{
-		Jeopardy.gameOver = true;
-		return;
-	}
-
-	while (Jeopardy.currentClue === null)
-	{
-		let randCat = randomIndex(Jeopardy.board.length);
-		let randClue = randomIndex(Jeopardy.board[randCat].clues.length);
-
-		if (!Jeopardy.board[randCat].clues[randClue].used)
-		{
-			Jeopardy.currentClue = Jeopardy.board[randCat].clues[randClue];
-		}
-	}
-};
-
 const drawGameOver = () =>
 {
-
+	$(".jeopardy_screen").empty();
+	let gameOverDiv = $("<div>");
+	
+	$(".jeopardy_screen").append(gameOverDiv);
 }
 
 const drawBoard = () =>
@@ -194,7 +48,7 @@ const drawBoard = () =>
 			{
 				clueDiv.addClass("text-muted");
 			}
-			clueDiv.html("<div class='card-body'><h3>$"+clue.value+"</h3></div>")
+			clueDiv.html("<div class='card-body'><h3>"+clue.value+"</h3></div>")
 			clueDiv.data("data-answer",clue.answer);
 			categoryDiv.append(clueDiv);
 		});
@@ -297,8 +151,7 @@ const drawStartGame = () =>
 	Jeopardy.startTrivia();
 	$(".jeopardy_screen").empty();
 	let startGameDiv = $("<div>").addClass("jumbotron");
-	startGameDiv.html(`
-	<h1 class="display-4">Let's Play Jeopardy!</h1>
+	startGameDiv.html(`<h1 class="display-4">Let's Play Jeopardy!</h1>
 	<p class="lead">Play this mod of classic the trivia game Jeopardy!</p>
 	<hr class="my-4">
 	<ul>
@@ -308,13 +161,17 @@ const drawStartGame = () =>
 	</ul>
 	<a class="btn btn-primary btn-lg" href="#" id="startButton" role="button">Start</a>
 	<hr class="my-4">
-	<h2>High Scores</h2>
-	`);
+	<h2>High Scores</h2>`);
 	startGameDiv.find("#startButton").click(() => 
 	{
 		drawBoard();
 	});
-	let highscores = $("ol");
+	let highscores = $("<ol>");
+	// sort highscores before displaying.
+	Jeopardy.highScores.sort((a, b) =>
+	{
+		return b.score - a.score;
+	});
 	Jeopardy.highScores.forEach((highscore) =>
 	{
 		highscores.append("<li class='text-uppercase text-monospace'>" + highscore.name + " " + highscore.score + "</li>")
