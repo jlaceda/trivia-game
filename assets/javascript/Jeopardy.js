@@ -45,7 +45,9 @@ let Jeopardy = {
 		theresawaron,
 	],
 
-	currentCategoryIndex: 0,
+	currentCategoryIndex: -1,
+
+	// TODO: The following function probably don't need to be methods
 
 	// These TimerStep functions will be passed into window.setInterval
 	// so "this" will be window. Don't use "this".
@@ -98,38 +100,62 @@ let Jeopardy = {
 	},
 	pickRandomClue: () =>
 	{
-		let thereAreStillUnusedClues = false;
-		Jeopardy.board.forEach(category =>
+		// make sure theres still clues left;
+		let categoriesDone = [];
+		let allCategoriesDone = true;
+		for (let i = 0; i < Jeopardy.board.length; i++)
 		{
-			category.clues.forEach(clue =>
+			categoriesDone[i] = categoryIsDone(i)
+			if (!categoriesDone[i])
 			{
-				if (!clue.used)
-				{
-					thereAreStillUnusedClues = true;
-					return;
-				}
-			});
-			if (thereAreStillUnusedClues)
-			{
-				return;
+				allCategoriesDone = false;
 			}
-		});
-
-		if (!thereAreStillUnusedClues)
+		}
+		if (allCategoriesDone)
 		{
 			Jeopardy.gameOver = true;
 			return;
 		}
 
+		// TODO: pick a random category
+		// but go through the whole category first before
+		// picking a new random category
+
+		// pick first random category
+		if (Jeopardy.currentCategoryIndex === -1)
+		{
+			Jeopardy.currentCategoryIndex = randomIndex(Jeopardy.board.length);
+		}
+
+		// check if current category has clues left
+		if (categoriesDone[Jeopardy.currentCategoryIndex])
+		{
+			// pick new random category
+			Jeopardy.currentCategoryIndex = -1;
+			while (Jeopardy.currentCategoryIndex === -1)
+			{
+				// pick a new category
+				let randCat = randomIndex(Jeopardy.board.length);
+				if (!categoryIsDone(randCat))
+				{
+					Jeopardy.currentCategoryIndex = randCat;
+				}
+			}
+		}
+
+		// at this point we should have a valid currentCategoryIndex
+		// pick the next unused clue
 		while (Jeopardy.currentClue === null)
 		{
-			let randCat = randomIndex(Jeopardy.board.length);
-			let randClue = randomIndex(Jeopardy.board[randCat].clues.length);
-
-			if (!Jeopardy.board[randCat].clues[randClue].used)
+			let clues = Jeopardy.board[Jeopardy.currentCategoryIndex].clues;
+			for (let i = 0; i < clues.length; i++)
 			{
-				Jeopardy.currentCategoryIndex = randCat;
-				Jeopardy.currentClue = Jeopardy.board[randCat].clues[randClue];
+				const clue = clues[i];
+				if (!clue.used)
+				{
+					Jeopardy.currentClue = clue;
+					break;
+				}
 			}
 		}
 	},
@@ -146,6 +172,19 @@ let Jeopardy = {
 const randomIndex = arrayLength =>
 {
 	return Math.floor(Math.random() * arrayLength);
+};
+
+const categoryIsDone = index =>
+{
+	let isDone = true;
+	Jeopardy.board[index].clues.forEach(clue =>
+	{
+		if (!clue.used)
+		{
+			isDone = false;
+		}
+	});
+	return isDone;
 };
 
 // validate that each answer has a question
