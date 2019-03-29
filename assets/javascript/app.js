@@ -90,39 +90,44 @@ const drawSolution = (clue, userAnswer) =>
 	let colDiv = $("<div>").addClass("col-md-12 mt-3");
 	let cardDiv = $("<div>").addClass("card text-white text-center p-4 mb-3");
 	let progressDiv = $("<div>").addClass("progress");
-	let progressBarDiv = $("<div>").addClass("progress-bar progress-bar-striped bg-primary");
+	let progressBarDiv = $("<div>").addClass("progress-bar progress-bar-striped");
 	progressBarDiv.css("width","0%");
 	progressDiv.append(progressBarDiv);
 
 	if (userAnswer === clue.question)
 	{
+		progressBarDiv.addClass("bg-success")
 		cardDiv.addClass("bg-success");
 		cardDiv.append("<h1>Correct!</h1>");
 		clue.correct = true;
 		Jeopardy.score += clue.value;
 		cardDiv.append(`<h2>Score: ${Jeopardy.score}</h2>`);
+		// show the solution card for only 2 seconds when the correct answer is chosen.
+		Jeopardy.solutionTimerCountDown = 2000;
 	}
 	else
 	{
-		// TODO: play wrong answer sound
+		progressBarDiv.addClass("bg-danger")
 		cardDiv.addClass("bg-danger");
 		if (userAnswer === "")
 		{
+			// TODO: play time out sound
 			cardDiv.append("<h1>Sorry you ran out of time.</h1>");
 		}
 		else
 		{
+			// TODO: play wrong answer sound
 			cardDiv.append("<h1>"+userAnswer+" is incorrect.</h1>");
 			Jeopardy.score -= clue.value;
 		}
 		cardDiv.append("<h1>The correct response is "+clue.question+".</h1>");
 		cardDiv.append(`<h2>Score: ${Jeopardy.score}</h2>`);
+		Jeopardy.solutionTimerCountDown = 3000;
 	}
 	cardDiv.append(progressDiv);
 	colDiv.append(cardDiv);
 	solutionDiv.append(colDiv);
 	// start clue timer.
-	Jeopardy.solutionTimerCountDown = 3000;
 	Jeopardy.solutionTimer = window.setInterval(Jeopardy.solutionTimerStep, 500);
 	// progress bar animation!!!
 	progressBarDiv.animate({ width: "100%" }, 3000);
@@ -146,12 +151,13 @@ const drawStartGame = () =>
 	});
 	$(".jeopardy_screen").empty();
 	let startGameDiv = $("<div>").addClass("jumbotron");
-	startGameDiv.html(`<h1 class="display-4">Let's Play Jeopardy!</h1>
+	startGameDiv.html(`<h1 class="display-4">Let's Play Speed Jeopardy!</h1>
 	<p class="lead">Play this mod of classic the trivia game Jeopardy!</p>
 	<hr class="my-4">
 	<ul>
 		<li>A clue will be given at random.</li>
-		<li>There is a ten second time limit at each clue.</li>
+		<li>There is a nine second time limit at each clue.</li>
+		<li>Responses are in multiple choice</li>
 		<li>Try to get to a high score!</li>
 	</ul>
 	<a class="btn btn-primary btn-lg" href="#" id="startButton" role="button">Start</a>

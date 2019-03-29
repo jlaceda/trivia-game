@@ -33,9 +33,9 @@ let Jeopardy = {
 	],
 
 	stepDuration: 500,
-	clueTimerDuration: 10000,
+	clueTimerDuration: 9000,
 	solutionTimerDuration: 3000,
-	boardTimerDuration: 4000,
+	boardTimerDuration: 2000,
 	board: [
 		moneymoneymoney,
 		weregoingtothemovies,
