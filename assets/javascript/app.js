@@ -130,7 +130,7 @@ const drawSolution = (clue, userAnswer) =>
 	// start clue timer.
 	Jeopardy.solutionTimer = window.setInterval(Jeopardy.solutionTimerStep, 500);
 	// progress bar animation!!!
-	progressBarDiv.animate({ width: "100%" }, 3000);
+	progressBarDiv.animate({ width: "100%" }, Jeopardy.solutionTimerCountDown);
 	$(".jeopardy_screen").append(solutionDiv);
 };
 
@@ -160,7 +160,7 @@ const drawStartGame = () =>
 		<li>Responses are in multiple choice</li>
 		<li>Try to get to a high score!</li>
 	</ul>
-	<a class="btn btn-primary btn-lg" href="#" id="startButton" role="button">Start</a>
+	<a class="btn btn-primary btn-lg" id="startButton" role="button">Start</a>
 	<hr class="my-4">
 	<h2>High Scores</h2>`);
 	startGameDiv.find("#startButton").click(() => 
