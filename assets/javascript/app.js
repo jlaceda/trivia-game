@@ -177,10 +177,27 @@ const drawStartGame = () =>
 
 const drawGameOver = () =>
 {
+	let correctCount = 0;
+	let missedCount = 0;
+	Jeopardy.board.forEach(cat =>
+	{
+		cat.clues.forEach(clue =>
+		{
+			if (clue.correct)
+			{
+				correctCount++;
+			}
+			else
+			{
+				missedCount++;
+			}
+		});
+	});
 	$(".jeopardy_screen").empty();
 	let gameOverDiv = $("<div>").addClass("jumbotron");
 	gameOverDiv.html(`
 	<h1 class="display-4">You did it!</h1>
+	<p class="lead">You got ${correctCount} clues correct and missed ${missedCount} clues.</p>
 	<p class="lead">You ended up with a final score of ${Jeopardy.score}</p>
 	<hr class="my-4">
 	<p>Enter your name for the High Score Board:</p>
