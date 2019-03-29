@@ -62,7 +62,6 @@ let Jeopardy = {
 			Jeopardy.clueTimer = null;
 			Jeopardy.clueTimerCountDown = Jeopardy.clueTimerDuration;
 			// then:
-			timeUpSound.play();
 			drawSolution(Jeopardy.currentClue, '');
 		}
 	},

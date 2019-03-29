@@ -114,7 +114,8 @@ const drawSolution = (clue, userAnswer) =>
 		cardDiv.addClass("bg-danger");
 		if (userAnswer === "")
 		{
-			// TODO: play time out sound
+			//play time out sound
+			timeUpSound.play();
 			cardDiv.append("<h1>Sorry you ran out of time.</h1>");
 		}
 		else
