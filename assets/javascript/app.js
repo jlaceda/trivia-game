@@ -18,7 +18,10 @@ const drawBoard = () =>
 	{
 		let categoryDiv = $("<div>").addClass("col-md-2 mt-3 jeopardy_category");
 		let categoryTitleDiv = $("<div>").addClass("card bg-primary text-white text-center text-uppercase p-3 mb-3 jeopardy_category_heading");
-		categoryTitleDiv.html("<h5>" + category.name + "</h5>")
+		categoryTitleDiv.html("<h5>" + category.name + "</h5>");
+		categoryTitleDiv.css({
+			height: '8rem'
+		});
 		categoryDiv.append(categoryTitleDiv);
 		category.clues.forEach(clue =>
 		{
@@ -141,6 +144,7 @@ const drawStartGame = () =>
 	Jeopardy.wrongCount = 0;
 	Jeopardy.score = 0;
 	Jeopardy.currentQuestion = null;
+	Jeopardy.currentCategoryIndex = -1;
 	Jeopardy.board.forEach(category =>
 	{
 		category.clues.forEach(clue =>
@@ -155,7 +159,7 @@ const drawStartGame = () =>
 	<p class="lead">Play this mod of classic the trivia game Jeopardy!</p>
 	<hr class="my-4">
 	<ul>
-		<li>A clue will be given at random.</li>
+		<li>A category will be chosen at random.</li>
 		<li>There is a nine second time limit at each clue.</li>
 		<li>Responses are in multiple choice</li>
 		<li>Try to get to a high score!</li>
