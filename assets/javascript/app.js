@@ -226,15 +226,9 @@ const drawGameOver = () =>
 	$(".jeopardy_screen").append(gameOverDiv);
 }
 
+var timeUpSound = new Audio("assets/audio/timeup.ogg");
+
 $(document).ready(function()
 {
 	drawStartGame();
-	//drawBoard();
-	//Jeopardy.currentClue = moneymoneymoney.clues[0];
-	//Jeopardy.currentCategoryIndex = 0;
-	//drawClue();
-	//drawSolution(moneymoneymoney.clues[3],"Alexander the Great");
-	//drawSolution(moneymoneymoney.clues[3],"");
-	//drawSolution(moneymoneymoney.clues[3],"Apollo");
-	//resetClues();
 });
