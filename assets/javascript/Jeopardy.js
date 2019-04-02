@@ -12,26 +12,6 @@ let Jeopardy = {
 	score: 0,
 	currentClue: null,
 
-	highScores:
-	[
-		{
-			name: "wtsn",
-			score: 18000
-		},
-		{
-			name: "john",
-			score: 1000
-		},
-		{
-			name: "alex",
-			score: 2000
-		},
-		{
-			name: "kenj",
-			score: 5000
-		},
-	],
-
 	stepDuration: 500,
 	clueTimerDuration: 9000,
 	solutionTimerDuration: 3000,
@@ -158,14 +138,7 @@ let Jeopardy = {
 				}
 			}
 		}
-	},
-	addHighScore: (name, score) =>
-	{
-		Jeopardy.highScores.push({
-			name: name,
-			score: score,
-		});
-	},
+	}
 };
 
 // random index from array length

@@ -1,8 +1,18 @@
-/// <reference path="jquery-3.3.1.min.js"/>
 /// <reference path="clues.js"/>
 /// <reference path="Jeopardy.js"/>
+/// <reference path="jquery-3.3.1.min.js"/>
 
 "use strict";
+// Initialize Firebase
+firebase.initializeApp({
+	apiKey: "AIzaSyBCbWdVphGh2DZno2PaFVAK-YSsv0VDMv0",
+	authDomain: "jeopardy-highscores.firebaseapp.com",
+	databaseURL: "https://jeopardy-highscores.firebaseio.com",
+	projectId: "jeopardy-highscores",
+	storageBucket: "jeopardy-highscores.appspot.com",
+	messagingSenderId: "729475800664"
+});
+let db = firebase.firestore();
 
 const drawBoard = () =>
 {
@@ -166,23 +176,43 @@ const drawStartGame = () =>
 	</ul>
 	<a class="btn btn-primary btn-lg" id="startButton" role="button">Start</a>
 	<hr class="my-4">
-	<h2>High Scores</h2>`);
+	<h2>High Scores</h2>
+	<table class="table">
+		<thead>
+			<tr>
+				<th scope="col">Place</th>
+				<th scope="col">Name</th>
+				<th scope="col">Score</th>
+			</tr>
+		</thead>
+		<tbody id="highscores">
+		</tbody>
+	</table>`);
 	startGameDiv.find("#startButton").click(() => 
 	{
 		drawBoard();
 	});
-	let highscores = $("<ol>");
-	// sort highscores before displaying.
-	Jeopardy.highScores.sort((a, b) =>
-	{
-		return b.score - a.score;
-	});
-	Jeopardy.highScores.forEach((highscore) =>
-	{
-		highscores.append("<li class='text-uppercase text-monospace'>" + highscore.name + " " + highscore.score + "</li>")
-	});
-	startGameDiv.append(highscores);
 	$(".jeopardy_screen").append(startGameDiv);
+	let highscoresEl = startGameDiv.find("#highscores");
+	// get scores from firebase
+	db.collection("highscores").orderBy("score", "desc").limit(10).get()
+	.then((querySnapshot) => 
+	{
+		let highscores = [];
+		querySnapshot.forEach((doc) => 
+		{
+			highscores.push(doc.data());
+		});
+		highscores.forEach((highscore,index,_) =>
+		{
+			highscoresEl.append(`
+			<tr>
+				<th scope="row">${index+1}</th>
+				<td class="text-uppercase">${highscore.name}</td>
+				<td>${highscore.score}</td>
+			</tr>`);
+		});
+	});
 };
 
 const drawGameOver = () =>
@@ -218,11 +248,22 @@ const drawGameOver = () =>
 		</div>
 	</div>
 	`);
-	gameOverDiv.find("#tryAgainButton").click(() => {
-		let name = $("#name").val();
-		Jeopardy.addHighScore(name, Jeopardy.score);
+	gameOverDiv.find("#tryAgainButton").click(() => 
+	{
+		let name = $("#name").val().trim();
+		// add score to firebase
+		db.collection("highscores").add({
+			name: name,
+			score: Jeopardy.score,
+		})
+		.then(function(docRef) {
+			console.log("Document written with ID: ", docRef.id);
+		})
+		.catch(function(error) {
+			console.error("Error adding document: ", error);
+		});
 		drawStartGame();
-	})
+	});
 	$(".jeopardy_screen").append(gameOverDiv);
 }
 
