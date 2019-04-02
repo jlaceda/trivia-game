@@ -240,9 +240,9 @@ const drawGameOver = () =>
 	<p class="lead">You got ${correctCount} clues correct and missed ${missedCount} clues.</p>
 	<p class="lead">You ended up with a final score of ${Jeopardy.score}</p>
 	<hr class="my-4">
-	<p>Enter your name for the High Score Board:</p>
+	<p>Enter your name:</p>
 	<div class="input-group mb-3">
-		<input id="name" type="text" class="form-control" placeholder="Initials" aria-label="Initials" aria-describedby="tryAgainButton">
+		<input id="name" type="text" class="form-control" placeholder="Name" aria-label="Name" aria-describedby="tryAgainButton">
 		<div class="input-group-append">
 			<button class="btn btn-outline-secondary" type="button" id="tryAgainButton">Try Again!</button>
 		</div>
