@@ -117,7 +117,7 @@ let Jeopardy = {
 			return;
 		}
 
-		// TODO: pick a random category
+		// pick a random category
 		// but go through the whole category first before
 		// picking a new random category
 

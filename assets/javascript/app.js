@@ -120,7 +120,6 @@ const drawSolution = (clue, userAnswer) =>
 		}
 		else
 		{
-			// TODO: play wrong answer sound
 			cardDiv.append("<h1>"+userAnswer+" is incorrect.</h1>");
 			Jeopardy.score -= clue.value;
 		}
